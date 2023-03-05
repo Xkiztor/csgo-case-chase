@@ -62,6 +62,10 @@ nav>div {
   align-items: center;
 }
 
+.router-link-active {
+  border-bottom: 3px solid gray;
+}
+
 nav a {
   color: white;
   font-size: 1.1rem;

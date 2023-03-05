@@ -94,12 +94,12 @@ const { width: screenWidth, height: screenHight } = useWindowSize()
           <option value="asc">Ascendin</option>
           <option value="desc">Descending</option>
         </select>
-        <input type="text" v-model="query">
+        <input type="text" v-model="query" @change="pageStart = 1">
         <button @click="fetcher()">Seach</button>
       </form>
       <div class="pagination">
         <button @click="pageNumber -= 1">Previus</button>
-        <input type="number" v-model="pageNumber">
+        <input type="number" v-model="pageNumber" min="1">
         <button @click="pageNumber += 1">Next</button>
       </div>
     </div>
