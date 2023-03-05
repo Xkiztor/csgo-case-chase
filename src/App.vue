@@ -1,7 +1,7 @@
 <script setup>
 import { onClickOutside, useScroll, useWindowSize } from '@vueuse/core';
 import { computed, ref, watch, watchEffect } from 'vue';
-import Case from './components/case.vue';
+// import Case from './components/case.vue';
 
 
 
