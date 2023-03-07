@@ -18,7 +18,7 @@ const pageStart = computed(() => {
   return (pageNumber.value * pageSize) - pageSize
 })
 watch(pageStart, () => {
-  fetcher()
+  // fetcher()
   // scrollX.value = 0
 })
 
@@ -28,7 +28,7 @@ const fetcher = async () => {
     .then((data) => array.value = data)
     .then((data) => console.log(data))
 }
-fetcher()
+// fetcher()
 console.log(array.value);
 
 const outsideClickEl = ref(null)
@@ -67,23 +67,23 @@ const { width: screenWidth, height: screenHight } = useWindowSize()
         <Case :price="5" />
         <Case :price="2" />
         <Case :price="100" />
-        <Case :price="1" />
-        <Case :price="9" />
-        <Case :price="5" />
-        <Case :price="2" />
-        <Case :price="100" />
-        <Case :price="1" />
-        <Case :price="9" />
-        <Case :price="5" />
-        <Case :price="2" />
-        <Case :price="100" />
-        <Case :price="1" />
-      </div>
+      <Case :price="1" />
+      <Case :price="9" />
+      <Case :price="5" />
+      <Case :price="2" />
+      <Case :price="100" />
+      <Case :price="1" />
+      <Case :price="9" />
+      <Case :price="5" />
+      <Case :price="2" />
+      <Case :price="100" />
+      <Case :price="1" />
     </div>
-  </section>
-  <div class="skin-browse-container">
-    <div class="top-controls">
-      <form @submit.prevent>
+  </div>
+</section>
+<div class="skin-browse-container">
+  <div class="top-controls">
+    <form @submit.prevent>
         <select name="" id="" v-model="sortColumn" @change="fetcher()">
           <option value="price">Price</option>
           <option value="default">Default</option>
@@ -109,24 +109,24 @@ const { width: screenWidth, height: screenHight } = useWindowSize()
         <img :src="bigImageUrl" alt="">
       </div>
     </div>
-    <div class="skin-grid">
-      <div v-for="item in array.results" class="skin-card">
-        <img @click="showBigImage = true,
-          bigImageUrl = 'https://community.akamai.steamstatic.com/economy/image/' + item.asset_description.icon_url"
-          :src="'https://community.akamai.steamstatic.com/economy/image/' + item.asset_description.icon_url" alt="">
-        <div>
-          <h2 :style="{ color: '#' + item.asset_description.name_color }">
-            {{ item.name }}
-          </h2>
-          <p>
-            {{ item.sell_price_text }} - count: {{ item.sell_listings }}
-          </p>
-          <a v-if="item.asset_description.market_actions" :href="item.asset_description.market_actions[0].link">Inspect
-            in
-            game</a>
-        </div>
-      </div>
-    </div>
+    <!-- <div class="skin-grid">
+          <div v-for="item in array.results" :key="item.asset_description.classid" class="skin-card">
+            <img @click="showBigImage = true,
+              bigImageUrl = 'https://community.akamai.steamstatic.com/economy/image/' + item.asset_description.icon_url"
+              :src="'https://community.akamai.steamstatic.com/economy/image/' + item.asset_description.icon_url" alt="">
+            <div>
+              <h2 :style="{ color: '#' + item.asset_description.name_color }">
+                {{ item.name }}
+              </h2>
+              <p>
+                {{ item.sell_price_text }} - count: {{ item.sell_listings }}
+              </p>
+              <a v-if="item.asset_description.market_actions" :href="item.asset_description.market_actions[0].link">Inspect
+                in
+                game</a>
+            </div>
+          </div>
+        </div> -->
     <p v-if="!array.results">Item not found</p>
 
     <div class="pagination">

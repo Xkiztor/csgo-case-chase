@@ -36,9 +36,9 @@ const flip = () => {
         </button>
       </div>
     </div>
-    <div v-else>
+    <div v-else class="">
       <h1>{{ chosenSide === 'ct' ? 'Counter Terrorrist' : 'Terrorrist' }}</h1>
-      <button @click="flip()">Flip</button>
+      <button @click="flip()" v-if="!winnerSide" class="flip">Flip</button>
       <div v-if="winnerSide">
         <p>{{ winnerSide === chosenSide ? 'You Won!' : 'You lost' }}</p>
         <button @click="chosenSide = '', winnerSide = '', youWon = false">Play agian</button>
@@ -64,5 +64,12 @@ const flip = () => {
 
 .side-choser button:hover {
   scale: 105%;
+}
+
+.flip {
+  width: 10rem;
+  height: 4rem;
+  font-size: 2rem;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
 }
 </style>
