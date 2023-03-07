@@ -42,16 +42,34 @@ const { width: screenWidth, height: screenHight } = useWindowSize()
 </script>
 
 <template>
-  <section>
-    <h1>Open Cases</h1>
-    <div class="cases-wrapper">
-      <button @click="scrollX -= screenWidth * 0.5" class="left scroll-buttons">←</button>
-      <button @click="scrollX += screenWidth * 0.5" class="right scroll-buttons">→</button>
-      <div class="cases" ref="pageScrollEl">
-        <Case :price="9" />
-        <Case :price="5" />
-        <Case :price="2" />
-        <Case :price="100" />
+  <div class="home-page">
+
+
+    <section>
+      <h1>Open Cases</h1>
+      <div class="cases-wrapper">
+        <button @click="scrollX -= screenWidth * 0.5" class="left scroll-buttons">←</button>
+        <button @click="scrollX += screenWidth * 0.5" class="right scroll-buttons">→</button>
+        <div class="cases" ref="pageScrollEl">
+          <Case :price="9" />
+          <Case :price="5" />
+          <Case :price="2" />
+          <Case :price="100" />
+          <Case :price="1" />
+          <Case :price="9" />
+          <Case :price="5" />
+          <Case :price="2" />
+          <Case :price="100" />
+          <Case :price="1" />
+          <Case :price="9" />
+          <Case :price="5" />
+          <Case :price="2" />
+          <Case :price="100" />
+          <Case :price="1" />
+          <Case :price="9" />
+          <Case :price="5" />
+          <Case :price="2" />
+          <Case :price="100" />
         <Case :price="1" />
         <Case :price="9" />
         <Case :price="5" />
@@ -63,82 +81,72 @@ const { width: screenWidth, height: screenHight } = useWindowSize()
         <Case :price="2" />
         <Case :price="100" />
         <Case :price="1" />
-        <Case :price="9" />
-        <Case :price="5" />
-        <Case :price="2" />
-        <Case :price="100" />
-      <Case :price="1" />
-      <Case :price="9" />
-      <Case :price="5" />
-      <Case :price="2" />
-      <Case :price="100" />
-      <Case :price="1" />
-      <Case :price="9" />
-      <Case :price="5" />
-      <Case :price="2" />
-      <Case :price="100" />
-      <Case :price="1" />
+      </div>
     </div>
-  </div>
-</section>
-<div class="skin-browse-container">
-  <div class="top-controls">
-    <form @submit.prevent>
-        <select name="" id="" v-model="sortColumn" @change="fetcher()">
-          <option value="price">Price</option>
-          <option value="default">Default</option>
-          <option value="quantity">Quantity</option>
-          <option value="name">Name</option>
-        </select>
-        <select name="" id="" v-model="sortDir" @change="fetcher()">
-          <option value="asc">Ascendin</option>
-          <option value="desc">Descending</option>
-        </select>
-        <input type="text" v-model="query" @change="pageStart = 1">
-        <button @click="fetcher()">Seach</button>
-      </form>
+  </section>
+  <div class="skin-browse-container">
+    <div class="top-controls">
+      <form @submit.prevent>
+          <select name="" id="" v-model="sortColumn" @change="fetcher()">
+            <option value="price">Price</option>
+            <option value="default">Default</option>
+            <option value="quantity">Quantity</option>
+            <option value="name">Name</option>
+          </select>
+          <select name="" id="" v-model="sortDir" @change="fetcher()">
+            <option value="asc">Ascendin</option>
+            <option value="desc">Descending</option>
+          </select>
+          <input type="text" v-model="query" @change="pageStart = 1">
+          <button @click="fetcher()">Seach</button>
+        </form>
+        <div class="pagination">
+          <button @click="pageNumber -= 1">Previus</button>
+          <input type="number" v-model="pageNumber" min="1">
+          <button @click="pageNumber += 1">Next</button>
+        </div>
+      </div>
+      <div class="screen-cover" v-if="showBigImage">
+        <div ref="outsideClickEl">
+          <button @click="showBigImage = false">Close</button>
+          <img :src="bigImageUrl" alt="">
+        </div>
+      </div>
+      <!-- <div class="skin-grid">
+                <div v-for="item in array.results" :key="item.asset_description.classid" class="skin-card">
+                  <img @click="showBigImage = true,
+                    bigImageUrl = 'https://community.akamai.steamstatic.com/economy/image/' + item.asset_description.icon_url"
+                    :src="'https://community.akamai.steamstatic.com/economy/image/' + item.asset_description.icon_url" alt="">
+                  <div>
+                    <h2 :style="{ color: '#' + item.asset_description.name_color }">
+                      {{ item.name }}
+                    </h2>
+                    <p>
+                      {{ item.sell_price_text }} - count: {{ item.sell_listings }}
+                    </p>
+                    <a v-if="item.asset_description.market_actions" :href="item.asset_description.market_actions[0].link">Inspect
+                      in
+                      game</a>
+                  </div>
+                </div>
+              </div> -->
+      <p v-if="!array.results">Item not found</p>
+
       <div class="pagination">
         <button @click="pageNumber -= 1">Previus</button>
-        <input type="number" v-model="pageNumber" min="1">
+        <input type="number" v-model="pageNumber">
         <button @click="pageNumber += 1">Next</button>
       </div>
-    </div>
-    <div class="screen-cover" v-if="showBigImage">
-      <div ref="outsideClickEl">
-        <button @click="showBigImage = false">Close</button>
-        <img :src="bigImageUrl" alt="">
-      </div>
-    </div>
-    <!-- <div class="skin-grid">
-          <div v-for="item in array.results" :key="item.asset_description.classid" class="skin-card">
-            <img @click="showBigImage = true,
-              bigImageUrl = 'https://community.akamai.steamstatic.com/economy/image/' + item.asset_description.icon_url"
-              :src="'https://community.akamai.steamstatic.com/economy/image/' + item.asset_description.icon_url" alt="">
-            <div>
-              <h2 :style="{ color: '#' + item.asset_description.name_color }">
-                {{ item.name }}
-              </h2>
-              <p>
-                {{ item.sell_price_text }} - count: {{ item.sell_listings }}
-              </p>
-              <a v-if="item.asset_description.market_actions" :href="item.asset_description.market_actions[0].link">Inspect
-                in
-                game</a>
-            </div>
-          </div>
-        </div> -->
-    <p v-if="!array.results">Item not found</p>
-
-    <div class="pagination">
-      <button @click="pageNumber -= 1">Previus</button>
-      <input type="number" v-model="pageNumber">
-      <button @click="pageNumber += 1">Next</button>
     </div>
   </div>
 </template>
 
 
 <style>
+.home-page {
+  display: flex;
+}
+
 .top-controls {
   display: flex;
   justify-content: space-between;

@@ -17,6 +17,7 @@ import { computed, ref, watch, watchEffect } from 'vue';
         <router-link to="/coinflip">Coinflip</router-link>
       </div>
       <div class="right">
+
         <button>Log in</button>
       </div>
     </nav>
@@ -36,10 +37,13 @@ import { computed, ref, watch, watchEffect } from 'vue';
   /* grid-template-columns: repeat(auto-fill, 15rem); */
   /* grid-auto-flow: column; */
   place-items: center;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  /* display: flex; */
+  /* flex-direction: column; */
   gap: 1rem;
   width: 100vw;
+  min-height: 100vh;
 }
 
 .page section {
@@ -48,7 +52,7 @@ import { computed, ref, watch, watchEffect } from 'vue';
 
 nav {
   background: rgb(30, 30, 30);
-  padding: 2rem;
+  padding: 1rem;
   width: 100%;
   gap: 1rem;
   display: flex;

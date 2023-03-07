@@ -87,6 +87,26 @@ export default defineComponent({
       value: {
         postalCode: '12345',
       },
+      style: {
+        base: {
+          iconColor: '#c4f0ff',
+          color: '#fff',
+          fontWeight: '400',
+          fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+          fontSize: '16px',
+          fontSmoothing: 'antialiased',
+          ':-webkit-autofill': {
+            color: '#fce883',
+          },
+          '::placeholder': {
+            color: '#FFF',
+          },
+        },
+        invalid: {
+          iconColor: '#FFC7EE',
+          color: '#FFC7EE',
+        },
+      },
     })
     const stripeLoaded = ref(false)
     const card = ref()
@@ -138,4 +158,13 @@ export default defineComponent({
   </div>
 </template>
 
-<style></style>
+<style>
+iframe {
+  height: 10rem !important;
+  width: 20rem !important;
+}
+
+iframe * {
+  color: white !important;
+}
+</style>
